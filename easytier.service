@@ -1,0 +1,18 @@
+[Unit]
+Description=easytier
+After=network.target nss-lookup.target
+
+[Service]
+User=easytier
+Group=easytier
+CapabilityBoundingSet=CAP_NET_ADMIN CAP_NET_BIND_SERVICE
+AmbientCapabilities=CAP_NET_ADMIN CAP_NET_BIND_SERVICE
+Type=exec
+EnvironmentFile = -/etc/easytier/env
+ExecStart=/usr/bin/easytier-core $EXTRA_OPTS
+Restart=on-failure
+TimeoutStartSec=10s
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target
